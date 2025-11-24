@@ -81,10 +81,22 @@
             to {transform: scale(1)}
         }
 
-        /* ปุ่มปิด (ซ่อนไว้สำหรับมือถือ เพราะสามารถแตะที่พื้นหลังเพื่อปิดได้) */
+        /* ปุ่มปิด (เพิ่มใหม่) */
         .close-btn {
-            display: none; 
-            /* ถ้าต้องการปุ่มปิดให้เปิด display: block; แล้วปรับตำแหน่ง */
+            display: block !important;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            font-size: 35px;
+            color: white;
+            cursor: pointer;
+            z-index: 1100;
+            user-select: none;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,0,0,0.6);
+        }
+        .close-btn:active {
+            transform: scale(0.85);
         }
     </style>
 </head>
@@ -250,7 +262,7 @@
     </div>
 
     <div id="myLightbox" class="lightbox" onclick="closeLightbox(event)">
-        <span class="close-btn">&times;</span>
+        <span class="close-btn" onclick="closeLightbox(event)">✕</span>  <!-- ปุ่มกากบาทที่เพิ่ม -->
         <img class="lightbox-content" id="lightbox-img" src="" alt="">
     </div>
 
@@ -280,7 +292,11 @@
                 }, 300); 
             }
         }
+
+        /* ป้องกันการกดรูปแล้วปิด (เพิ่มใหม่) */
+        document.querySelector('.lightbox-content').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
     </script>
 </body>
-
 </html>
